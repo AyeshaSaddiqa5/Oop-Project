@@ -7,7 +7,7 @@ public class HouseRentSystem {
 
         int choice;
         do {
-            System.out.println("1. Enter your name and allocate a house");
+            System.out.println("1. Enter details and allocate a house");
             System.out.println("2. Collect rent");
             System.out.println("3. Vacate a house");
             System.out.println("4. Display houses");
@@ -35,7 +35,7 @@ public class HouseRentSystem {
                     break;
 
                 case 0:
-                    System.out.println("Exiting the program. Goodbye!");
+                    System.out.println("Closing the System. Goodbye!!!");
                     break;
 
                 default:
@@ -43,7 +43,6 @@ public class HouseRentSystem {
             }
         } while (choice != 0);
 
-        scanner.close();
     }
 }
 

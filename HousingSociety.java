@@ -81,7 +81,13 @@ private static final String FILE_NAME = "society_data.ser";
         }
         System.out.println("House " + houseNumber + " not found.");
     }
-
+    private void saveToFile(String fileName) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
+            outputStream.writeObject(houses);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

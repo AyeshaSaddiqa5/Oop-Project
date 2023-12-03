@@ -1,4 +1,12 @@
-abstract class House {
+package com.example.projectgui;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class House implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private int houseNumber;
     private HouseStatus status;
     private Person tenant;
@@ -33,6 +41,9 @@ abstract class House {
         return rentPaid;
     }
 
+
+
+
     public void occupyHouse(Person tenant) {
         if (status == HouseStatus.FOR_RENT && this.tenant == null) {
             this.tenant = tenant;
@@ -64,4 +75,11 @@ abstract class House {
     }
 
     public abstract void displayDetails();
+
+    public void resetHouse() {
+        this.tenant = null;
+        this.status = HouseStatus.FOR_RENT;
+    }
+
+
 }

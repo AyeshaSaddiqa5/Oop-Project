@@ -1,23 +1,44 @@
+package com.example.projectgui;
+
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
-public class HousingSociety {
+import javafx.scene.paint.Color;
+public class HousingSociety extends Application {
     private List<House> houses;
-    
-private static final String FILE_NAME = "society_data.ser";
+    private static final String FILE_NAME = "society_data.ser";
     private Stage primaryStage;
-    private static final String ADMIN_EMAIL = "h";
-    private static final String ADMIN_PASSWORD = "y";
-    public HousingSociety() {
-        this.houses = new ArrayList<>();
+    private Label messageLabel;
+
+    private static final String ADMIN_EMAIL = "admin@gmail.com";
+    private static final String ADMIN_PASSWORD = "oopproject";
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        this.houses = loadFromFile(FILE_NAME);
         initializeHouses();
+        addShutdownHook();
+
+        showAdminLoginScene();
     }
 
     private void showAdminLoginScene() {
         BorderPane adminLoginLayout = new BorderPane();
 
-        
         Image logo = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
         ImageView logoView = new ImageView(logo);
         adminLoginLayout.setCenter(logoView);
@@ -58,6 +79,7 @@ private static final String FILE_NAME = "society_data.ser";
 
         primaryStage.show();
     }
+
     private void showWelcomeScene() {
         BorderPane welcomeLayout = new BorderPane();
 
@@ -80,10 +102,11 @@ private static final String FILE_NAME = "society_data.ser";
         Scene welcomeScene = new Scene(welcomeLayout, 500, 500);
         primaryStage.setScene(welcomeScene);
     }
+
     private void showMainMenu() {
         BorderPane mainMenuLayout = new BorderPane();
 
-        
+
         Image image = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
         ImageView imageView = new ImageView(image);
         mainMenuLayout.setLeft(imageView);
@@ -91,7 +114,7 @@ private static final String FILE_NAME = "society_data.ser";
         HBox buttonsLayout = new HBox(10);
         buttonsLayout.setPadding(new Insets(20));
 
-        
+
         VBox firstLine = new VBox(10);
         Button allocateHouseButton = new Button("Allocate House");
         allocateHouseButton.setOnAction(e -> showAllocateHouseScene());
@@ -113,7 +136,7 @@ private static final String FILE_NAME = "society_data.ser";
 
         buttonsLayout.getChildren().addAll(firstLine, secondLine);
 
-        messageLabel = new Label(); 
+        messageLabel = new Label();
 
         buttonsLayout.getChildren().addAll(messageLabel);
 
@@ -124,6 +147,7 @@ private static final String FILE_NAME = "society_data.ser";
         primaryStage.setTitle("Housing Society Management");
         primaryStage.show();
     }
+
     private void showAllocateHouseScene() {
         VBox allocateHouseLayout = new VBox(10);
         allocateHouseLayout.setPadding(new Insets(20));
@@ -200,13 +224,14 @@ private static final String FILE_NAME = "society_data.ser";
 
         collectRentLayout.getChildren().addAll(flatNumberLabel, flatNumberField, collectRentButton, createBackButton());
 
-        messageLabel = new Label(); 
+        messageLabel = new Label();
 
         collectRentLayout.getChildren().addAll(messageLabel);
 
         Scene collectRentScene = new Scene(collectRentLayout, 350, 300);
         primaryStage.setScene(collectRentScene);
     }
+
     private void showVacateHouseScene() {
         VBox vacateHouseLayout = new VBox(10);
         vacateHouseLayout.setPadding(new Insets(20));
@@ -241,6 +266,7 @@ private static final String FILE_NAME = "society_data.ser";
         Scene vacateHouseScene = new Scene(vacateHouseLayout, 350, 300);
         primaryStage.setScene(vacateHouseScene);
     }
+
     private void showDisplayHousesScene() {
         VBox displayHousesLayout = new VBox(10);
         displayHousesLayout.setPadding(new Insets(20));
@@ -255,99 +281,36 @@ private static final String FILE_NAME = "society_data.ser";
                         ", Rent Paid: " + house.isRentPaid() + "\n");
             }
         }
-        
+
           displayHousesLayout.getChildren().add(housesTextArea);
         displayHousesLayout.getChildren().add(createBackButton());
-        messageLabel = new Label(); 
+        messageLabel = new Label();
 
         displayHousesLayout.getChildren().addAll(messageLabel);
 
         Scene displayHousesScene = new Scene(displayHousesLayout, 400, 300);
         primaryStage.setScene(displayHousesScene);
     }
-    private void initializeHouses() {
-        int houseNumber = 1;
-        for (int floor = 1; floor <= 20; floor++) {
-            for (int flat = 1; flat <= 10; flat++) {
-                houses.add(new Flat(houseNumber++, HouseStatus.FOR_RENT, 20000.0));
-            }
-        }
-    }
 
-    public void displayHouses() {
-        System.out.println("Houses currently on rent:");
-        for (House house : houses) {
-            if (house.getStatus() == HouseStatus.OCCUPIED) {
-                house.displayDetails();
-            }
-        }
-    }
-
-
-    public void enterNameAndAllocateHouse() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your name:");
-        String name = scanner.nextLine();
-        System.out.println("Enter your ID:");
-        String id = scanner.nextLine();
-        Person person = new Person(name, id);
-
-        System.out.println("Enter the house number to allocate:");
-        int houseNumber = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline
-
-        for (House house : houses) {
-            if (house.getHouseNumber() == houseNumber) {
-                house.occupyHouse(person);
-                return;
-            }
-        }
-        System.out.println("House " + houseNumber + " not found.");
-    }
-
-    public void collectRent() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the flat number to collect rent:");
-        int flatNumber = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline
-
-        for (House house : houses) {
-            if (house.getHouseNumber() == flatNumber && house.getStatus() == HouseStatus.OCCUPIED) {
-                house.payRent();
-                return;
-            }
-        }
-        System.out.println("Flat " + flatNumber + " not found or not occupied.");
-    }
-
-
-    public void vacateHouse() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the house number to vacate:");
-        int houseNumber = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline
-
-        for (House house : houses) {
-            if (house.getHouseNumber() == houseNumber) {
-                house.vacateHouse();
-                return;
-            }
-        }
-        System.out.println("House " + houseNumber + " not found.");
-    }
     private Button createBackButton() {
         Button backButton = new Button("Back to Main Menu");
         backButton.setOnAction(e -> showMainMenu());
         return backButton;
     }
-     private void addShutdownHook() {
-        primaryStage.setOnCloseRequest(event -> saveToFile(FILE_NAME));
+
+    private void initializeHouses() {
+        if (houses.isEmpty()) {
+            int houseNumber = 1;
+            for (int floor = 1; floor <= 20; floor++) {
+                for (int flat = 1; flat <= 10; flat++) {
+                    houses.add(new Flat(houseNumber++, HouseStatus.FOR_RENT, 20000.0));
+                }
+            }
+        }
     }
-    private void showMessage(String message, Alert.AlertType type) {
-        Alert alert = new Alert(type);
-        alert.setTitle("Message");
-        alert.setHeaderText(message);
-        alert.showAndWait();
+
+    private void addShutdownHook() {
+        primaryStage.setOnCloseRequest(event -> saveToFile(FILE_NAME));
     }
 
     private void saveToFile(String fileName) {
@@ -357,6 +320,8 @@ private static final String FILE_NAME = "society_data.ser";
             e.printStackTrace();
         }
     }
+
+    @SuppressWarnings("unchecked")
     private List<House> loadFromFile(String fileName) {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
             return (List<House>) inputStream.readObject();
@@ -365,5 +330,11 @@ private static final String FILE_NAME = "society_data.ser";
         }
     }
 
-
+    // Method to show messages on the GUI
+    private void showMessage(String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle("Message");
+        alert.setHeaderText(message);
+        alert.showAndWait();
+    }
 }

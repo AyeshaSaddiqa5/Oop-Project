@@ -124,6 +124,38 @@ private static final String FILE_NAME = "society_data.ser";
         primaryStage.setTitle("Housing Society Management");
         primaryStage.show();
     }
+    private void showCollectRentScene() {
+        VBox collectRentLayout = new VBox(10);
+        collectRentLayout.setPadding(new Insets(20));
+
+        Label flatNumberLabel = new Label("Enter the flat number to collect rent:");
+        TextField flatNumberField = new TextField();
+
+        Button collectRentButton = new Button("Collect Rent");
+        collectRentButton.setOnAction(e -> {
+            int flatNumber = Integer.parseInt(flatNumberField.getText());
+
+            for (House house : houses) {
+                if (house.getHouseNumber() == flatNumber && house.getStatus() == HouseStatus.OCCUPIED) {
+                    house.payRent();
+                    showMessage("Rent collected for House " + flatNumber, Alert.AlertType.INFORMATION);
+                    break;
+                } else if (house.getHouseNumber() == flatNumber && house.getStatus() == HouseStatus.FOR_RENT) {
+                    showMessage("House " + flatNumber + " is not occupied yet", Alert.AlertType.WARNING);
+                    break;
+                }
+            }
+        });
+
+        collectRentLayout.getChildren().addAll(flatNumberLabel, flatNumberField, collectRentButton, createBackButton());
+
+        messageLabel = new Label(); 
+
+        collectRentLayout.getChildren().addAll(messageLabel);
+
+        Scene collectRentScene = new Scene(collectRentLayout, 350, 300);
+        primaryStage.setScene(collectRentScene);
+    }
     private void initializeHouses() {
         int houseNumber = 1;
         for (int floor = 1; floor <= 20; floor++) {

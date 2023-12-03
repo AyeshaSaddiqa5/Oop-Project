@@ -6,11 +6,58 @@ public class HousingSociety {
     private List<House> houses;
     
 private static final String FILE_NAME = "society_data.ser";
+    private Stage primaryStage;
+    private static final String ADMIN_EMAIL = "h";
+    private static final String ADMIN_PASSWORD = "y";
     public HousingSociety() {
         this.houses = new ArrayList<>();
         initializeHouses();
     }
 
+    private void showAdminLoginScene() {
+        BorderPane adminLoginLayout = new BorderPane();
+
+        // Add logo to the center
+        Image logo = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
+        ImageView logoView = new ImageView(logo);
+        adminLoginLayout.setCenter(logoView);
+
+        VBox loginBox = new VBox(10);
+        loginBox.setPadding(new Insets(20));
+
+        Label emailLabel = new Label("Enter your email:");
+        TextField emailField = new TextField();
+
+        Label passwordLabel = new Label("Enter your password:");
+        PasswordField passwordField = new PasswordField();
+
+        Button loginButton = new Button("Login");
+        loginButton.setOnAction(e -> {
+            String email = emailField.getText();
+            String password = passwordField.getText();
+
+            if (email.equals(ADMIN_EMAIL) && password.equals(ADMIN_PASSWORD)) {
+                showWelcomeScene();
+            } else {
+                showMessage("Incorrect email or password", Alert.AlertType.ERROR);
+            }
+        });
+
+        messageLabel = new Label();
+
+        loginBox.getChildren().add(emailLabel);
+        loginBox.getChildren().add(emailField);
+        loginBox.getChildren().add(passwordLabel);
+        loginBox.getChildren().add(passwordField);
+        loginBox.getChildren().add(loginButton);
+        loginBox.getChildren().add(messageLabel);
+        adminLoginLayout.setBottom(loginBox);
+        Scene adminLoginScene = new Scene(adminLoginLayout, 500, 500);
+        primaryStage.setTitle("Admin Login");
+        primaryStage.setScene(adminLoginScene);
+
+        primaryStage.show();
+    }
     private void initializeHouses() {
         int houseNumber = 1;
         for (int floor = 1; floor <= 20; floor++) {

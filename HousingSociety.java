@@ -340,6 +340,9 @@ private static final String FILE_NAME = "society_data.ser";
         backButton.setOnAction(e -> showMainMenu());
         return backButton;
     }
+     private void addShutdownHook() {
+        primaryStage.setOnCloseRequest(event -> saveToFile(FILE_NAME));
+    }
 
     private void saveToFile(String fileName) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {

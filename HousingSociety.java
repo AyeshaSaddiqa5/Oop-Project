@@ -17,7 +17,7 @@ private static final String FILE_NAME = "society_data.ser";
     private void showAdminLoginScene() {
         BorderPane adminLoginLayout = new BorderPane();
 
-        // Add logo to the center
+        
         Image logo = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
         ImageView logoView = new ImageView(logo);
         adminLoginLayout.setCenter(logoView);
@@ -79,6 +79,50 @@ private static final String FILE_NAME = "society_data.ser";
 
         Scene welcomeScene = new Scene(welcomeLayout, 500, 500);
         primaryStage.setScene(welcomeScene);
+    }
+    private void showMainMenu() {
+        BorderPane mainMenuLayout = new BorderPane();
+
+        
+        Image image = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
+        ImageView imageView = new ImageView(image);
+        mainMenuLayout.setLeft(imageView);
+
+        HBox buttonsLayout = new HBox(10);
+        buttonsLayout.setPadding(new Insets(20));
+
+        
+        VBox firstLine = new VBox(10);
+        Button allocateHouseButton = new Button("Allocate House");
+        allocateHouseButton.setOnAction(e -> showAllocateHouseScene());
+
+        Button collectRentButton = new Button("Collect Rent");
+        collectRentButton.setOnAction(e -> showCollectRentScene());
+        firstLine.getChildren().addAll(allocateHouseButton, collectRentButton);
+
+        VBox secondLine = new VBox(10);
+        Button vacateHouseButton = new Button("Vacate House");
+        vacateHouseButton.setOnAction(e -> showVacateHouseScene());
+
+        Button displayHousesButton = new Button("Display Houses");
+        displayHousesButton.setOnAction(e -> showDisplayHousesScene());
+
+        Button exitButton = new Button("Exit");
+        exitButton.setOnAction(e -> primaryStage.close());
+        secondLine.getChildren().addAll(vacateHouseButton, displayHousesButton, exitButton);
+
+        buttonsLayout.getChildren().addAll(firstLine, secondLine);
+
+        messageLabel = new Label(); 
+
+        buttonsLayout.getChildren().addAll(messageLabel);
+
+        mainMenuLayout.setRight(buttonsLayout);
+
+        Scene mainMenuScene = new Scene(mainMenuLayout, 500, 300);
+        primaryStage.setScene(mainMenuScene);
+        primaryStage.setTitle("Housing Society Management");
+        primaryStage.show();
     }
     private void initializeHouses() {
         int houseNumber = 1;

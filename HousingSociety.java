@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 public class HousingSociety {
     private List<House> houses;
-
+    
+private static final String FILE_NAME = "society_data.ser";
     public HousingSociety() {
         this.houses = new ArrayList<>();
         initializeHouses();

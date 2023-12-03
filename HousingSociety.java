@@ -88,6 +88,13 @@ private static final String FILE_NAME = "society_data.ser";
             e.printStackTrace();
         }
     }
+    private List<House> loadFromFile(String fileName) {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(fileName))) {
+            return (List<House>) inputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            return new ArrayList<>();
+        }
+    }
 
 
 }

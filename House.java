@@ -1,8 +1,6 @@
-package com.example.projectgui;
+
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class House implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -48,9 +46,9 @@ public abstract class House implements Serializable {
         if (status == HouseStatus.FOR_RENT && this.tenant == null) {
             this.tenant = tenant;
             status = HouseStatus.OCCUPIED;
-            System.out.println("House number " + houseNumber + " allocated to " + tenant.getName());
+            System.out.println("House " + houseNumber + " allocated to " + tenant.getName());
         } else {
-            System.out.println("House number " + houseNumber + " is not available for allocation.");
+            System.out.println("House " + houseNumber + " is not available for allocation.");
         }
     }
 
@@ -70,7 +68,7 @@ public abstract class House implements Serializable {
             System.out.println("Rent collected for House " + houseNumber + " from " + tenant.getName());
             rentPaid = true;
         } else {
-            System.out.println("House " + houseNumber + " is not occupied or rent is already paid.");
+            System.out.println("House " + houseNumber + " is not available for rent collection or rent is already paid.");
         }
     }
 

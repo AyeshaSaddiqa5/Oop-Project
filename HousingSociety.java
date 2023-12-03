@@ -241,6 +241,30 @@ private static final String FILE_NAME = "society_data.ser";
         Scene vacateHouseScene = new Scene(vacateHouseLayout, 350, 300);
         primaryStage.setScene(vacateHouseScene);
     }
+    private void showDisplayHousesScene() {
+        VBox displayHousesLayout = new VBox(10);
+        displayHousesLayout.setPadding(new Insets(20));
+
+        TextArea housesTextArea = new TextArea();
+        housesTextArea.setEditable(false);
+
+        for (House house : houses) {
+            if (house.getStatus() == HouseStatus.OCCUPIED) {
+                housesTextArea.appendText("House " + house.getHouseNumber() + " - " +
+                        "Tenant: " + (house.getTenant() != null ? house.getTenant().getName() : "None") +
+                        ", Rent Paid: " + house.isRentPaid() + "\n");
+            }
+        }
+        
+          displayHousesLayout.getChildren().add(housesTextArea);
+        displayHousesLayout.getChildren().add(createBackButton());
+        messageLabel = new Label(); 
+
+        displayHousesLayout.getChildren().addAll(messageLabel);
+
+        Scene displayHousesScene = new Scene(displayHousesLayout, 400, 300);
+        primaryStage.setScene(displayHousesScene);
+    }
     private void initializeHouses() {
         int houseNumber = 1;
         for (int floor = 1; floor <= 20; floor++) {

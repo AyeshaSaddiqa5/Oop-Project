@@ -124,6 +124,57 @@ private static final String FILE_NAME = "society_data.ser";
         primaryStage.setTitle("Housing Society Management");
         primaryStage.show();
     }
+    private void showAllocateHouseScene() {
+        VBox allocateHouseLayout = new VBox(10);
+        allocateHouseLayout.setPadding(new Insets(20));
+
+        Label nameLabel = new Label("Enter name of Tenant:");
+        TextField nameField = new TextField();
+
+        Label idLabel = new Label("Enter ID:");
+        TextField idField = new TextField();
+
+        Label houseNumberLabel = new Label("Enter the house number to allocate:");
+        TextField houseNumberField = new TextField();
+
+        Button allocateButton = new Button("Allocate House");
+        allocateButton.setOnAction(e -> {
+            String name = nameField.getText();
+            String id = idField.getText();
+            int houseNumber = Integer.parseInt(houseNumberField.getText());
+
+            Person person = new Person(name, id);
+
+            for (House house : houses) {
+                if (house.getHouseNumber() == houseNumber) {
+                    if (house.getStatus() == HouseStatus.FOR_RENT) {
+                        house.occupyHouse(person);
+                        showMessage("House allocated to " + name, Alert.AlertType.INFORMATION);
+                    } else {
+                        showMessage("House " + houseNumber + " is already occupied", Alert.AlertType.WARNING);
+                    }
+                    break;
+                }
+            }
+        });
+
+        allocateHouseLayout.getChildren().add(nameLabel);
+        allocateHouseLayout.getChildren().add(nameField);
+        allocateHouseLayout.getChildren().add(idLabel);
+        allocateHouseLayout.getChildren().add(idField);
+        allocateHouseLayout.getChildren().add(houseNumberLabel);
+        allocateHouseLayout.getChildren().add(houseNumberField);
+        allocateHouseLayout.getChildren().add(allocateButton);
+        allocateHouseLayout.getChildren().add(createBackButton());
+
+        messageLabel = new Label();
+
+        allocateHouseLayout.getChildren().addAll(messageLabel);
+
+        Scene allocateHouseScene = new Scene(allocateHouseLayout, 350, 300);
+        primaryStage.setScene(allocateHouseScene);
+    }
+
     private void showCollectRentScene() {
         VBox collectRentLayout = new VBox(10);
         collectRentLayout.setPadding(new Insets(20));

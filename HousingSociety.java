@@ -343,6 +343,12 @@ private static final String FILE_NAME = "society_data.ser";
      private void addShutdownHook() {
         primaryStage.setOnCloseRequest(event -> saveToFile(FILE_NAME));
     }
+    private void showMessage(String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle("Message");
+        alert.setHeaderText(message);
+        alert.showAndWait();
+    }
 
     private void saveToFile(String fileName) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {

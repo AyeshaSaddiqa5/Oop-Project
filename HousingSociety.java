@@ -58,6 +58,28 @@ private static final String FILE_NAME = "society_data.ser";
 
         primaryStage.show();
     }
+    private void showWelcomeScene() {
+        BorderPane welcomeLayout = new BorderPane();
+
+
+        Image welcomeImage = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
+        ImageView welcomeImageView = new ImageView(welcomeImage);
+        welcomeLayout.setCenter(welcomeImageView);
+
+
+        Label welcomeLabel = new Label("Welcome to Housing Society!");
+        welcomeLabel.setStyle("-fx-font-size: 30; -fx-font-weight: bold;");
+        welcomeLayout.setTop(welcomeLabel);
+
+
+        Button nextButton = new Button("Next");
+        nextButton.setOnAction(e -> showMainMenu());
+        welcomeLayout.setBottom(nextButton);
+
+
+        Scene welcomeScene = new Scene(welcomeLayout, 500, 500);
+        primaryStage.setScene(welcomeScene);
+    }
     private void initializeHouses() {
         int houseNumber = 1;
         for (int floor = 1; floor <= 20; floor++) {

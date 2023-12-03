@@ -335,6 +335,12 @@ private static final String FILE_NAME = "society_data.ser";
         }
         System.out.println("House " + houseNumber + " not found.");
     }
+    private Button createBackButton() {
+        Button backButton = new Button("Back to Main Menu");
+        backButton.setOnAction(e -> showMainMenu());
+        return backButton;
+    }
+
     private void saveToFile(String fileName) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(fileName))) {
             outputStream.writeObject(houses);

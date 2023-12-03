@@ -207,6 +207,40 @@ private static final String FILE_NAME = "society_data.ser";
         Scene collectRentScene = new Scene(collectRentLayout, 350, 300);
         primaryStage.setScene(collectRentScene);
     }
+    private void showVacateHouseScene() {
+        VBox vacateHouseLayout = new VBox(10);
+        vacateHouseLayout.setPadding(new Insets(20));
+
+        Label houseNumberLabel = new Label("Enter the house number to vacate:");
+        TextField houseNumberField = new TextField();
+
+        Button vacateButton = new Button("Vacate House");
+        vacateButton.setOnAction(e -> {
+            int houseNumber = Integer.parseInt(houseNumberField.getText());
+
+            for (House house : houses) {
+                if (house.getHouseNumber() == houseNumber) {
+                    if (house.getStatus() == HouseStatus.OCCUPIED) {
+                        house.vacateHouse();
+                        house.resetHouse();
+                        showMessage("House vacated: " + houseNumber, Alert.AlertType.INFORMATION);
+                    } else {
+                        showMessage("House " + houseNumber + " is not occupied", Alert.AlertType.WARNING);
+                    }
+                    break;
+                }
+            }
+        });
+
+        vacateHouseLayout.getChildren().addAll(houseNumberLabel, houseNumberField, vacateButton, createBackButton());
+
+        messageLabel = new Label(); // Initialize the message label
+
+        vacateHouseLayout.getChildren().addAll(messageLabel);
+
+        Scene vacateHouseScene = new Scene(vacateHouseLayout, 350, 300);
+        primaryStage.setScene(vacateHouseScene);
+    }
     private void initializeHouses() {
         int houseNumber = 1;
         for (int floor = 1; floor <= 20; floor++) {

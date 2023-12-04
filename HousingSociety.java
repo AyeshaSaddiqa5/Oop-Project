@@ -22,7 +22,7 @@ public class HousingSociety extends Application {
     private Stage primaryStage;
     private Label messageLabel;
 
-    private static final String ADMIN_EMAIL = "a";
+    private static final String ADMIN_EMAIL = "admin@gmail.com";
     private static final String ADMIN_PASSWORD = "a";
 
     public static void main(String[] args) {

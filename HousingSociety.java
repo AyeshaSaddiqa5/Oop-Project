@@ -2,11 +2,14 @@ package com.example.projectgui;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -19,8 +22,8 @@ public class HousingSociety extends Application {
     private Stage primaryStage;
     private Label messageLabel;
 
-    private static final String ADMIN_EMAIL = "admin@gmail.com";
-    private static final String ADMIN_PASSWORD = "oopproject";
+    private static final String ADMIN_EMAIL = "a";
+    private static final String ADMIN_PASSWORD = "a";
 
     public static void main(String[] args) {
         launch(args);
@@ -36,7 +39,7 @@ public class HousingSociety extends Application {
         showAdminLoginScene();
     }
 
-   private void showAdminLoginScene() {
+    private void showAdminLoginScene() {
         BorderPane adminLoginLayout = new BorderPane();
         Scene adminLoginScene = new Scene(adminLoginLayout, 500, 500);
         //adminLoginScene.setFill(Color.LIGHTSKYBLUE);
@@ -86,21 +89,28 @@ public class HousingSociety extends Application {
 
         primaryStage.show();
     }
+
     private void showWelcomeScene() {
         BorderPane welcomeLayout = new BorderPane();
+        welcomeLayout.setStyle("-fx-background-color: #70FF70;");
 
 
-        Image welcomeImage = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
+        Image welcomeImage = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\WelcomeImage.jpeg");
+
         ImageView welcomeImageView = new ImageView(welcomeImage);
+        welcomeImageView.setFitWidth(500);
+        welcomeImageView.setFitHeight(300);
         welcomeLayout.setCenter(welcomeImageView);
 
 
-        Label welcomeLabel = new Label("Welcome to Housing Society!");
-        welcomeLabel.setStyle("-fx-font-size: 30; -fx-font-weight: bold;");
+
+        Label welcomeLabel = new Label("Welcome to GreenLand Housing Society!\nStep in for Better Future\nLive Green\nTo be Green\nStep in for Your DREAMS");
+        welcomeLabel.setStyle("fx-font-family: 'Didot';-fx-font-size: 15;-fx-text-fill: #006400;-fx-font-weight:bold ");
         welcomeLayout.setTop(welcomeLabel);
 
-
         Button nextButton = new Button("Next");
+        nextButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
+
         nextButton.setOnAction(e -> showMainMenu());
         welcomeLayout.setBottom(nextButton);
 
@@ -112,6 +122,7 @@ public class HousingSociety extends Application {
     private void showMainMenu() {
         BorderPane mainMenuLayout = new BorderPane();
 
+        mainMenuLayout.setStyle("-fx-background-color: #70FF70;");
 
         Image image = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
         ImageView imageView = new ImageView(image);
@@ -123,20 +134,30 @@ public class HousingSociety extends Application {
 
         VBox firstLine = new VBox(10);
         Button allocateHouseButton = new Button("Allocate House");
+        allocateHouseButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
+
         allocateHouseButton.setOnAction(e -> showAllocateHouseScene());
 
         Button collectRentButton = new Button("Collect Rent");
+        collectRentButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
+
         collectRentButton.setOnAction(e -> showCollectRentScene());
         firstLine.getChildren().addAll(allocateHouseButton, collectRentButton);
 
         VBox secondLine = new VBox(10);
         Button vacateHouseButton = new Button("Vacate House");
+        vacateHouseButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
+
         vacateHouseButton.setOnAction(e -> showVacateHouseScene());
 
         Button displayHousesButton = new Button("Display Houses");
+        displayHousesButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
+
         displayHousesButton.setOnAction(e -> showDisplayHousesScene());
 
         Button exitButton = new Button("Exit");
+        exitButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
+
         exitButton.setOnAction(e -> primaryStage.close());
         secondLine.getChildren().addAll(vacateHouseButton, displayHousesButton, exitButton);
 
@@ -156,18 +177,29 @@ public class HousingSociety extends Application {
 
     private void showAllocateHouseScene() {
         VBox allocateHouseLayout = new VBox(10);
+        allocateHouseLayout.setStyle("-fx-background-color: #70FF70;");
+
         allocateHouseLayout.setPadding(new Insets(20));
 
         Label nameLabel = new Label("Enter name of Tenant:");
+        nameLabel.setStyle("-fx-text-fill: #006400;");
+
         TextField nameField = new TextField();
 
         Label idLabel = new Label("Enter ID:");
+        idLabel.setStyle("-fx-text-fill: #006400;");
+
         TextField idField = new TextField();
 
         Label houseNumberLabel = new Label("Enter the house number to allocate:");
+        houseNumberLabel.setStyle("-fx-text-fill: #006400;");
+
         TextField houseNumberField = new TextField();
 
         Button allocateButton = new Button("Allocate House");
+        allocateButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
+
+
         allocateButton.setOnAction(e -> {
             String name = nameField.getText();
             String id = idField.getText();
@@ -207,12 +239,18 @@ public class HousingSociety extends Application {
 
     private void showCollectRentScene() {
         VBox collectRentLayout = new VBox(10);
+        collectRentLayout.setStyle("-fx-background-color: #70FF70;");
+
         collectRentLayout.setPadding(new Insets(20));
 
         Label flatNumberLabel = new Label("Enter the flat number to collect rent:");
+        flatNumberLabel.setStyle("-fx-text-fill: #006400;");
+
         TextField flatNumberField = new TextField();
 
         Button collectRentButton = new Button("Collect Rent");
+        collectRentButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
+
         collectRentButton.setOnAction(e -> {
             int flatNumber = Integer.parseInt(flatNumberField.getText());
 
@@ -240,12 +278,18 @@ public class HousingSociety extends Application {
 
     private void showVacateHouseScene() {
         VBox vacateHouseLayout = new VBox(10);
+        vacateHouseLayout.setStyle("-fx-background-color: #70FF70;");
+
         vacateHouseLayout.setPadding(new Insets(20));
 
         Label houseNumberLabel = new Label("Enter the house number to vacate:");
+        houseNumberLabel.setStyle("-fx-text-fill: #006400;");
+
         TextField houseNumberField = new TextField();
 
         Button vacateButton = new Button("Vacate House");
+        vacateButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
+
         vacateButton.setOnAction(e -> {
             int houseNumber = Integer.parseInt(houseNumberField.getText());
 
@@ -275,6 +319,8 @@ public class HousingSociety extends Application {
 
     private void showDisplayHousesScene() {
         VBox displayHousesLayout = new VBox(10);
+        displayHousesLayout.setStyle("-fx-background-color: #70FF70;");
+
         displayHousesLayout.setPadding(new Insets(20));
 
         TextArea housesTextArea = new TextArea();
@@ -300,6 +346,8 @@ public class HousingSociety extends Application {
 
     private Button createBackButton() {
         Button backButton = new Button("Back to Main Menu");
+        backButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
+
         backButton.setOnAction(e -> showMainMenu());
         return backButton;
     }

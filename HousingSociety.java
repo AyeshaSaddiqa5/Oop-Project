@@ -22,7 +22,7 @@ public class HousingSociety extends Application {
     private Stage primaryStage;
     private Label messageLabel;
 
-    private static final String ADMIN_EMAIL = "admin@gmail.com";
+    private static final String ADMIN_EMAIL = "a";
     private static final String ADMIN_PASSWORD = "a";
 
     public static void main(String[] args) {
@@ -42,8 +42,7 @@ public class HousingSociety extends Application {
     private void showAdminLoginScene() {
         BorderPane adminLoginLayout = new BorderPane();
         Scene adminLoginScene = new Scene(adminLoginLayout, 500, 500);
-        //adminLoginScene.setFill(Color.LIGHTSKYBLUE);
-       // adminLoginLayout.setStyle("-fx-background-color: #E0FFFF;");
+
         adminLoginLayout.setStyle("-fx-background-color: #70FF70;");
         Image logo = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
         ImageView logoView = new ImageView(logo);
@@ -74,14 +73,12 @@ public class HousingSociety extends Application {
             }
         });
 
-      //  messageLabel = new Label();
 
         loginBox.getChildren().add(emailLabel);
         loginBox.getChildren().add(emailField);
         loginBox.getChildren().add(passwordLabel);
         loginBox.getChildren().add(passwordField);
         loginBox.getChildren().add(loginButton);
-      //  loginBox.getChildren().add(messageLabel);
         adminLoginLayout.setBottom(loginBox);
 
         primaryStage.setTitle("Admin Login");
@@ -126,6 +123,7 @@ public class HousingSociety extends Application {
 
         Image image = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
         ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(300);
         mainMenuLayout.setLeft(imageView);
 
         HBox buttonsLayout = new HBox(10);
@@ -163,9 +161,6 @@ public class HousingSociety extends Application {
 
         buttonsLayout.getChildren().addAll(firstLine, secondLine);
 
-        messageLabel = new Label();
-
-        buttonsLayout.getChildren().addAll(messageLabel);
 
         mainMenuLayout.setRight(buttonsLayout);
 
@@ -268,9 +263,6 @@ public class HousingSociety extends Application {
 
         collectRentLayout.getChildren().addAll(flatNumberLabel, flatNumberField, collectRentButton, createBackButton());
 
-        messageLabel = new Label();
-
-        collectRentLayout.getChildren().addAll(messageLabel);
 
         Scene collectRentScene = new Scene(collectRentLayout, 350, 300);
         primaryStage.setScene(collectRentScene);
@@ -309,9 +301,7 @@ public class HousingSociety extends Application {
 
         vacateHouseLayout.getChildren().addAll(houseNumberLabel, houseNumberField, vacateButton, createBackButton());
 
-        messageLabel = new Label(); // Initialize the message label
 
-        vacateHouseLayout.getChildren().addAll(messageLabel);
 
         Scene vacateHouseScene = new Scene(vacateHouseLayout, 350, 300);
         primaryStage.setScene(vacateHouseScene);
@@ -384,7 +374,6 @@ public class HousingSociety extends Application {
         }
     }
 
-    // Method to show messages on the GUI
     private void showMessage(String message, Alert.AlertType type) {
         Alert alert = new Alert(type);
         alert.setTitle("Message");

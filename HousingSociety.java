@@ -36,9 +36,12 @@ public class HousingSociety extends Application {
         showAdminLoginScene();
     }
 
-    private void showAdminLoginScene() {
+   private void showAdminLoginScene() {
         BorderPane adminLoginLayout = new BorderPane();
-
+        Scene adminLoginScene = new Scene(adminLoginLayout, 500, 500);
+        //adminLoginScene.setFill(Color.LIGHTSKYBLUE);
+       // adminLoginLayout.setStyle("-fx-background-color: #E0FFFF;");
+        adminLoginLayout.setStyle("-fx-background-color: #70FF70;");
         Image logo = new Image("D:\\Computer Science\\Semester2\\OOP\\projectgui\\src\\log.png");
         ImageView logoView = new ImageView(logo);
         adminLoginLayout.setCenter(logoView);
@@ -47,12 +50,16 @@ public class HousingSociety extends Application {
         loginBox.setPadding(new Insets(20));
 
         Label emailLabel = new Label("Enter your email:");
+        emailLabel.setStyle("-fx-text-fill: #006400;");
+
         TextField emailField = new TextField();
 
         Label passwordLabel = new Label("Enter your password:");
+        passwordLabel.setStyle("-fx-text-fill: #006400;");
         PasswordField passwordField = new PasswordField();
 
         Button loginButton = new Button("Login");
+        loginButton.setStyle("-fx-background-color: #008000; -fx-text-fill: white;");
         loginButton.setOnAction(e -> {
             String email = emailField.getText();
             String password = passwordField.getText();
@@ -64,22 +71,21 @@ public class HousingSociety extends Application {
             }
         });
 
-        messageLabel = new Label();
+      //  messageLabel = new Label();
 
         loginBox.getChildren().add(emailLabel);
         loginBox.getChildren().add(emailField);
         loginBox.getChildren().add(passwordLabel);
         loginBox.getChildren().add(passwordField);
         loginBox.getChildren().add(loginButton);
-        loginBox.getChildren().add(messageLabel);
+      //  loginBox.getChildren().add(messageLabel);
         adminLoginLayout.setBottom(loginBox);
-        Scene adminLoginScene = new Scene(adminLoginLayout, 500, 500);
+
         primaryStage.setTitle("Admin Login");
         primaryStage.setScene(adminLoginScene);
 
         primaryStage.show();
     }
-
     private void showWelcomeScene() {
         BorderPane welcomeLayout = new BorderPane();
 
